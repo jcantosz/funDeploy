@@ -15,6 +15,13 @@ node_js:
 
 before_install:
   #Install cloudfoundry
+  - bash bin/setup.sh
+  - bash bin/ansibleSetup.sh
+  - bash pip install aws-cli
+  - bash aws s3 cp S3_URI ./
+  - bash chmod 755 jesse.tar 
+  - tar -xvzf jesse.tar
+ 
   # Pull container.
   # - sudo apt-get -qq update
   # - 'docker pull webdevops/ansible:alpine-3'
