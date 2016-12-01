@@ -17,6 +17,7 @@ before_install:
   #Install cloudfoundry
   - bash bin/setup.sh
   - bash bin/ansibleSetup.sh
+  - bash apt-get install pip
   - bash pip install aws-cli
   - bash aws s3 cp S3_URI ./
   - bash chmod 755 jesse.tar 
