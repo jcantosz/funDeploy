@@ -20,5 +20,5 @@ before_install:
 
 
 script:
-  - npm --help 
+  - echo hello 
 
