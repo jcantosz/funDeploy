@@ -30,6 +30,6 @@ before_install:
 
 
 script:
-  - ansible-playbook playbook.yml
+  - ansible-playbook tstbk.yml
   - echo hello 
 
