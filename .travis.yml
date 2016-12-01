@@ -18,8 +18,8 @@ before_install:
   - bash bin/setup.sh
   - bash bin/ansibleSetup.sh
   - aws s3 cp $S3_URI ./
-  - bash chmod 755 jesse.tar 
-  - bash tar -xvzf jesse.tar
+  - chmod 755 jesse.tar 
+  - tar -xvzf jesse.tar
  
   # Pull container.
   # - sudo apt-get -qq update
