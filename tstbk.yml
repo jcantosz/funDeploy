@@ -1,0 +1,10 @@
+# Publish this application to bluemix using ansible
+---
+- name: Publish the troll-gate to Bluemix using Ansible
+  hosts: localhost
+  connection: local
+  vars:
+    username: "{{ lookup('env','BM_USER') }}"
+  tasks:
+    - name: test
+      shell: "cf login -u {{ username }} -p null"
