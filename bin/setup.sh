@@ -6,4 +6,5 @@ echo "deb http://packages.cloudfoundry.org/debian stable main" | sudo tee /etc/a
 sudo apt-get update
 sudo apt-get install cf-cli
 sudo apt-get install python-pip python-dev build-essential
-pip install aws-cli 
+sudo pip install --upgrade pip
+sudo pip install awscli 
