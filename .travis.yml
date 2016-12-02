@@ -10,6 +10,9 @@ notifications:
 node_js:
   - "6"
 
+env:
+  - DEPLOY_STATUS_URL="https://api.github.com/repos/$TRAVIS_REPO_SLUG/deployments/$TRAVIS_TAG/statuses"
+
 # services:
 #   - docker
 
@@ -29,8 +32,7 @@ before_install:
 
 before_script:
   # Writeback status update for pending if exists
-  - [ -n "$TRAVIS_TAG" ] && export DEPLOY_STATUS_URL="https://api.github.com/repos/$TRAVIS_REPO_SLUG/deployments/$TRAVIS_TAG/statuses"
-  - [ -n "$DEPLOY_STATUS_URL" ] && bash bin/curlStatus.sh  "pending" "Deployment to bluemix started"
+  - bash bin/curlStatus.sh  "pending" "Deployment to bluemix started"
 
 script:
   - ansible-playbook tstbk.yml
@@ -38,9 +40,9 @@ script:
 
 after_failure:
   # Writeback status update for failure if exists
-  - [ -n "$DEPLOY_STATUS_URL" ] && bash bin/curlStatus.sh  "failure" "Deployment to bluemix failed"
+  - bash bin/curlStatus.sh  "failure" "Deployment to bluemix failed"
 
 after_success:
   # Writeback status update for failure if exists
-  - [ -n "$DEPLOY_STATUS_URL" ] && bash bin/curlStatus.sh  "success" "Deployment to bluemix successful"
+  - bash bin/curlStatus.sh  "success" "Deployment to bluemix successful"
 

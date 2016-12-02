@@ -2,6 +2,10 @@
 STATUS="$1"
 MESSAGE="$2"
 
-curl -H "Authorization: token $GH_TOKEN" -H "Content-Type: application/json" -X POST "$DEPLOY_STATUS_URL" -d "{\"state\": \"$STATUS\",\"description\": \"$MESSAGE\"}"
+if [ -n "$TRAVIS_TAG" ] ; then
+  curl -H "Authorization: token $GH_TOKEN" -H "Content-Type: application/json" -X POST "$DEPLOY_STATUS_URL" -d "{\"state\": \"$STATUS\",\"description\": \"$MESSAGE\"}"
+else
+  echo "no tag/deployment id"
+fi
 
 
