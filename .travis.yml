@@ -27,9 +27,20 @@ before_install:
 #  - sudo apt-get install ansible
 #  - sudo apt-get install python-virtualenv
 
-
+before_script:
+  # Writeback status update for pending if exists
+  - bash [ -n "$TRAVIS_TAG" ] && export DEPLOY_STATUS_URL="https://api.github.com/repos/$TRAVIS_REPO_SLUG/deployments/$TRAVIS_TAG/statuses"
+  - bash [ -n "$DEPLOY_STATUS_URL" ] && curl -H "Authorization: token $GH_TOKEN" -H "Content-Type: application/json" -X POST "$DEPLOY_STATUS_URL" -d "{\"state\": \"pending\",\"description\": \"Deployment to bluemix started\"}"
 
 script:
   - ansible-playbook tstbk.yml
-  - echo hello 
+  - echo hello
+
+after_failure:
+  # Writeback status update for failure if exists
+  - bash [ -n "$DEPLOY_STATUS_URL" ] && curl -H "Authorization: token $GH_TOKEN" -H "Content-Type: application/json" -X POST "$DEPLOY_STATUS_URL" -d "{\"state\": \"failure\",\"description\": \"Deployment to bluemix failed\"}" 
+
+after_success:
+  # Writeback status update for failure if exists
+  - bash [ -n "$DEPLOY_STATUS_URL" ] && curl -H "Authorization: token $GH_TOKEN" -H "Content-Type: application/json" -X POST "$DEPLOY_STATUS_URL" -d "{\"state\": \"success\",\"description\": \"Deployment to bluemix success\"}"
 
