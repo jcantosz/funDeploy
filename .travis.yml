@@ -29,8 +29,8 @@ before_install:
 
 before_script:
   # Writeback status update for pending if exists
-  - bash [ -n "$TRAVIS_TAG" ] && export DEPLOY_STATUS_URL="https://api.github.com/repos/$TRAVIS_REPO_SLUG/deployments/$TRAVIS_TAG/statuses"
-  - bash [ -n "$DEPLOY_STATUS_URL" ] && bin/curlStatus.sh  "pending" "Deployment to bluemix started"
+  - [ -n "$TRAVIS_TAG" ] && export DEPLOY_STATUS_URL="https://api.github.com/repos/$TRAVIS_REPO_SLUG/deployments/$TRAVIS_TAG/statuses"
+  - [ -n "$DEPLOY_STATUS_URL" ] && bash bin/curlStatus.sh  "pending" "Deployment to bluemix started"
 
 script:
   - ansible-playbook tstbk.yml
@@ -38,9 +38,9 @@ script:
 
 after_failure:
   # Writeback status update for failure if exists
-  - bash [ -n "$DEPLOY_STATUS_URL" ] && bin/curlStatus.sh  "failure" "Deployment to bluemix failed"
+  - [ -n "$DEPLOY_STATUS_URL" ] && bash bin/curlStatus.sh  "failure" "Deployment to bluemix failed"
 
 after_success:
   # Writeback status update for failure if exists
-  - bash [ -n "$DEPLOY_STATUS_URL" ] && bin/curlStatus.sh  "success" "Deployment to bluemix successful"
+  - [ -n "$DEPLOY_STATUS_URL" ] && bash bin/curlStatus.sh  "success" "Deployment to bluemix successful"
 
