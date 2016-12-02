@@ -6,5 +6,8 @@
   vars:
     username: "{{ lookup('env','BM_USER') }}"
   tasks:
-    - name: test
+    - name: CF Login
       shell: "cf login -u {{ username }} -p null"
+      no_log: True
+    - name: test
+      shell: "cf logs"
