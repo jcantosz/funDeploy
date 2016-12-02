@@ -5,9 +5,12 @@
   connection: local
   vars:
     username: "{{ lookup('env','BM_USER') }}"
+    password: "{{ lookup('env','BM_PASS') }}"
+    org: "{{ lookup('env','BM_ORG') }}"
+    space: "{{ lookup('env','BM_SPACE') }}"
   tasks:
     - name: CF Login
-      shell: "cf login -u {{ username }} -p null"
+      shell: "cf login -a https://api.ng.bluemix.net -u {{ username }} -p {{ password  }} -o {{ org }} -s {{ space }}"
       no_log: True
     - name: test
       shell: "cf logs"
