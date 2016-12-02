@@ -13,4 +13,4 @@
       shell: "cf login -a https://api.ng.bluemix.net -u {{ username }} -p {{ password  }} -o {{ org }} -s {{ space }}"
       no_log: True
     - name: test
-      shell: "cf logs"
+      shell: "cf push"
