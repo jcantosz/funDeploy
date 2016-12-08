@@ -1,10 +1,12 @@
 #!/bin/bash
 
-BIN_DIR=$(dirname $0)
+BIN_DIR="$(dirname $0)"
 
 "$BIN_DIR/curlStatus.sh"  "pending" "Deployment to bluemix started"
 
 cd tmp
+ls -l
+
 ansible-playbook ../tstbk.yml
 rc=$?
 
