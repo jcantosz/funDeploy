@@ -25,6 +25,7 @@ after_success:
 
 deploy:
     - provider: script
+      skip_cleanup: true
       script: bin/deploy.sh                  #run ansible playbook to deploy app to bluemix
       on:
         branch: staging
