@@ -11,15 +11,7 @@ node_js:
   - "6"
 
 env:
-  - DEPLOY_STATUS_URL="https://api.github.com/repos/$TRAVIS_REPO_SLUG/deployments/$TRAVIS_TAG/statuses"
-
-before_install:
-  #Install cloudfoundry
-  - bash bin/setup.sh
-  - bash bin/ansibleSetup.sh
-  - aws s3 cp s3://thetodd/jesse2.tar ./
-  - chmod 755 jesse2.tar
-  - tar -xvzf jesse2.tar
+  - BM_SPACE="ToddsPlace" MANIFEST="manifest.yml" DEPLOY_STATUS_URL="https://api.github.com/repos/$TRAVIS_REPO_SLUG/deployments/$TRAVIS_TAG/statuses"
 
 script:
   - npm test
