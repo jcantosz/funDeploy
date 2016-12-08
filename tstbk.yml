@@ -8,9 +8,10 @@
     password: "{{ lookup('env','BM_PASS') }}"
     org: "{{ lookup('env','BM_ORG') }}"
     space: "{{ lookup('env','BM_SPACE') }}"
+    manifest: "{{ lookup('env','MANIFEST') }}"
   tasks:
     - name: CF Login
       shell: "cf login -a https://api.ng.bluemix.net -u {{ username }} -p {{ password  }} -o {{ org }} -s {{ space }}"
       no_log: True
     - name: CF Push
-      shell: "cf push"
+      shell: "cf push -f {{ manifest }}"
