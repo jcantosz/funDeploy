@@ -11,7 +11,7 @@ echo "Deployment to bluemix started"
 
 
 
-#ansible-playbook ../tstbk.yml
+ansible-playbook ../tstbk.yml
 rc=$?
 
 if [[ $rc != 0 ]]; then
