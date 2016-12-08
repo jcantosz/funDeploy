@@ -6,7 +6,6 @@ notifications:
   email: false
 
 
-# test on two node.js versions: 0.6 and 0.8
 node_js:
   - "6"
 
@@ -19,9 +18,10 @@ script:
 after_success:
   - bash bin/setup.sh                         #Install cf and aws
   - bash bin/ansibleSetup.sh                  #Install ansible
-  - aws s3 cp s3://thetodd/jesse2.tar ./      #Download artifacts
-  - chmod 755 jesse2.tar
-  - tar -xvzf jesse2.tar
+  - mkdir tmp
+  - aws s3 cp s3://thetodd/jesse2.tar ./tmp     #Download artifacts
+  - chmod 755 tmp/jesse2.tar
+  - tar -xvzf tmp/jesse2.tar -C ./tmp
 
 deploy:
     - provider: script

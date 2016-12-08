@@ -4,7 +4,8 @@ BIN_DIR=$(dirname $0)
 
 "$BIN_DIR/curlStatus.sh"  "pending" "Deployment to bluemix started"
 
-ansible-playbook tstbk.yml
+cd tmp
+ansible-playbook ../tstbk.yml
 rc=$?
 
 if [[ $rc != 0 ]]; then
