@@ -10,7 +10,7 @@ node_js:
   - "6"
 
 env:
-  - BM_SPACE="ToddsPlace" MANIFEST="manifest.yml" DEPLOY_STATUS_URL="https://api.github.com/repos/$TRAVIS_REPO_SLUG/deployments/$TRAVIS_TAG/statuses"
+  - BM_SPACE="Jobgate" MANIFEST="manifest.yml" DEPLOY_STATUS_URL="https://api.github.com/repos/$TRAVIS_REPO_SLUG/deployments/$TRAVIS_TAG/statuses"
 
 script:
   - npm test
