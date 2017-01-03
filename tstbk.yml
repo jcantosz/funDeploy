@@ -14,4 +14,4 @@
       shell: "cf login -a https://api.ng.bluemix.net -u {{ username }} -p {{ password  }} -o {{ org }} -s {{ space }}"
       no_log: True
     - name: CF Push
-      shell: "cf push -f {{ manifest }}"
+      shell: "cf push -f {{ manifest }} --hostname my-cool-troll-gate"
