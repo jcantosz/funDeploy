@@ -6,43 +6,28 @@ notifications:
   email: false
 
 
-# test on two node.js versions: 0.6 and 0.8
 node_js:
   - "6"
 
 env:
-  - DEPLOY_STATUS_URL="https://api.github.com/repos/$TRAVIS_REPO_SLUG/deployments/$TRAVIS_TAG/statuses"
-
-# services:
-#   - docker
-
-before_install:
-  #Install cloudfoundry
-  - bash bin/setup.sh
-  - bash bin/ansibleSetup.sh
-  - aws s3 cp $S3_URI ./
-  - chmod 755 jesse.tar 
-  - tar -xvzf jesse.tar
- 
-  # Pull container.
-  # - sudo apt-get -qq update
-  # - 'docker pull webdevops/ansible:alpine-3'
-#  - sudo apt-get install ansible
-#  - sudo apt-get install python-virtualenv
-
-before_script:
-  # Writeback status update for pending if exists
-  - bash bin/curlStatus.sh  "pending" "Deployment to bluemix started"
+  - BM_SPACE="Jobgate" MANIFEST="manifest.yml" #DEPLOY_STATUS_URL="https://api.github.com/repos/$TRAVIS_REPO_SLUG/deployments/$TRAVIS_TAG/statuses"
 
 script:
-  - ansible-playbook tstbk.yml
-  - echo hello
-
-after_failure:
-  # Writeback status update for failure if exists
-  - bash bin/curlStatus.sh  "failure" "Deployment to bluemix failed"
+  - npm test
 
 after_success:
-  # Writeback status update for failure if exists
-  - bash bin/curlStatus.sh  "success" "Deployment to bluemix successful"
+  - bash bin/setup.sh                         #Install cf and aws
+  - bash bin/ansibleSetup.sh                  #Install ansible
+  - mkdir tmp
+  - aws s3 cp s3://thetodd/jesse2.tar ./tmp     #Download artifacts
+  - chmod 755 tmp/jesse2.tar
+  - tar -xvzf tmp/jesse2.tar -C ./tmp
 
+deploy:
+    - provider: script
+      skip_cleanup: true
+      script: bin/deploy.sh                  #run ansible playbook to deploy app to bluemix
+      on:
+         all_branches: true
+#      on:
+#        branch: staging

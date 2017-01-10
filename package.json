@@ -1,0 +1,22 @@
+{
+  "name": "fun-deploy",
+  "version": "0.0.1",
+  "description": "Deploy S3 application using Ansible",
+  "main": "index.js",
+  "scripts": {
+    "test": "yamllint *.yml"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jcantosz/funDeploy.git"
+  },
+  "author": "jcantocz@us.ibm.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jcantosz/funDeploy/issues"
+  },
+  "homepage": "https://github.com/jcantosz/funDeploy#readme",
+  "devDependencies": {
+    "yaml-lint": "0.0.2"
+  }
+}
